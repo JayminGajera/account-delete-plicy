@@ -1,12 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const FeedBackForm = () => {
+
+  const [formData, setFormData] = useState({
+    reason: "",
+    satisfaction: "",
+    technical: "",
+    improvements: "",
+    likely:"",
+    recommend: "",
+    phoneNumber: "",
+    confirmation: "",
+    aboutApp:"",
+    aboutAppExperience:"",
+    technicalIssues:"",
+    termAgreed:false,
+    dataLostAgreed:false,
+    notReclaimAgreed:false,
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+    // Add your logic to submit the form data here
+  };
+
   return (
     <div className="w-full h-screen bg-white mt-10 px-2">
       <h1 className="font-bold text-3xl">Account Delete Confirmation</h1>
 
-      <form>
+      <form onSubmit={handleSubmit}>
         {/* 1 */}
         <div className="mt-8 flex flex-col gap-y-2 ">
           <label className="text-xl text-gray-600">
@@ -18,6 +50,8 @@ const FeedBackForm = () => {
               id="dissatisfaction"
               name="reason"
               value="Dissatisfaction with app features or functionality."
+              checked={formData.reason === "Dissatisfaction with app features or functionality."}
+              onChange={handleInputChange}
             />
             <label htmlFor="dissatisfaction">
               Dissatisfaction with app features or functionality.
@@ -29,6 +63,8 @@ const FeedBackForm = () => {
               id="privacy"
               name="reason"
               value="Privacy concerns or data handling issues."
+              checked={formData.reason === "Privacy concerns or data handling issues."}
+              onChange={handleInputChange}
             />
             <label htmlFor="privacy">
               Privacy concerns or data handling issues.
@@ -40,6 +76,8 @@ const FeedBackForm = () => {
               id="alternative"
               name="reason"
               value="Found an alternative service or platform."
+              checked={formData.reason === "Found an alternative service or platform."}
+              onChange={handleInputChange}
             />
             <label htmlFor="alternative">
               Found an alternative service or platform.
@@ -51,6 +89,8 @@ const FeedBackForm = () => {
               id="no-need"
               name="reason"
               value="No longer need the app's services."
+              checked={formData.reason === "No longer need the app's services."}
+              onChange={handleInputChange}
             />
             <label htmlFor="no-need">No longer need the app's services.</label>
           </div>
@@ -61,6 +101,9 @@ const FeedBackForm = () => {
             <textarea
               className="border-[1.3px] border-gray-600 rounded-md"
               rows={5}
+              name="aboutApp"
+              value={formData.aboutApp}
+              onChange={handleInputChange}
             ></textarea>
           </div>
         </div>
@@ -75,6 +118,8 @@ const FeedBackForm = () => {
               id="very satisfied"
               name="satisfied"
               value="Very satisfied"
+              checked={formData.satisfied === "Very satisfied"}
+              onChange={handleInputChange}
             />
             <label htmlFor="very satisfied">Very satisfied</label>
           </div>
@@ -84,11 +129,13 @@ const FeedBackForm = () => {
               id="somewhat"
               name="satisfied"
               value="Somewhat satisfied"
+              checked={formData.satisfied === "Somewhat satisfied"}
+              onChange={handleInputChange}
             />
             <label htmlFor="somewhat">Somewhat satisfied</label>
           </div>
           <div className="flex gap-x-2 text-gray-600">
-            <input type="radio" id="neutral" name="satisfied" value="Neutral" />
+            <input type="radio" id="neutral" name="satisfied" value="Neutral" checked={formData.satisfied === "Neutral"}/>
             <label htmlFor="neutral">Neutral</label>
           </div>
           <div className="flex gap-x-2 text-gray-600">
@@ -96,7 +143,9 @@ const FeedBackForm = () => {
               type="radio"
               id="somewhat dissatisfied"
               name="satisfied"
-              value="Somewhat dissatisfied "
+              value="Somewhat dissatisfied"
+              checked={formData.satisfied === "Somewhat dissatisfied"}
+              onChange={handleInputChange}
             />
             <label htmlFor="somewhat dissatisfied">
               Somewhat dissatisfied{" "}
@@ -109,6 +158,9 @@ const FeedBackForm = () => {
             <textarea
               className="border-[1.3px] border-gray-600 rounded-md"
               rows={5}
+              name="aboutAppExperience"
+              value={formData.aboutAppExperience}
+              onChange={handleInputChange}
             ></textarea>
           </div>
         </div>
@@ -124,6 +176,8 @@ const FeedBackForm = () => {
               id="frequently"
               name="technical"
               value="Yes, frequently"
+              checked={formData.technical === "Yes, frequently"}
+              onChange={handleInputChange}
             />
             <label htmlFor="frequently">Yes, frequently</label>
           </div>
@@ -133,6 +187,8 @@ const FeedBackForm = () => {
               id="occasionally"
               name="technical"
               value="Yes, occasionally"
+              checked={formData.technical === "Yes, occasionally"}
+              onChange={handleInputChange}
             />
             <label htmlFor="occasionally">Yes, occasionally</label>
           </div>
@@ -142,6 +198,8 @@ const FeedBackForm = () => {
               id="notreally"
               name="technical"
               value="No, not really"
+              checked={formData.technical === "No, not really"}
+              onChange={handleInputChange}
             />
             <label htmlFor="notreally">No, not really</label>
           </div>
@@ -151,6 +209,8 @@ const FeedBackForm = () => {
               id="appfeatures"
               name="technical"
               value="Dissatisfaction with app features or functionality."
+              checked={formData.technical === "Dissatisfaction with app features or functionality."}
+              onChange={handleInputChange}
             />
             <label htmlFor="appfeatures">
               Dissatisfaction with app features or functionality.
@@ -163,6 +223,9 @@ const FeedBackForm = () => {
             <textarea
               className="border-[1.3px] border-gray-600 rounded-md"
               rows={5}
+              name="technicalIssues"
+              value={formData.technicalIssues}
+              onChange={handleInputChange}
             ></textarea>
           </div>
         </div>
@@ -177,12 +240,14 @@ const FeedBackForm = () => {
               type="radio"
               id="ver like"
               name="likely"
-              value=" Very likely"
+              value="Very likely"
+              checked={formData.likely === "Very likely"}
+              onChange={handleInputChange}
             />
             <label htmlFor="ver like"> Very likely</label>
           </div>
           <div className="flex gap-x-2 text-gray-600">
-            <input type="radio" id="md like" name="likely" value="Likely" />
+            <input type="radio" id="md like" name="likely" value="Likely" checked={formData.likely === "Likely"} onChange={handleInputChange} />
             <label htmlFor="md like">Likely</label>
           </div>
           <div className="flex gap-x-2 text-gray-600">
@@ -191,11 +256,13 @@ const FeedBackForm = () => {
               id="netualal"
               name="likely"
               value="Neutral"
+              checked={formData.likely === "Neutral"}
+              onChange={handleInputChange}
             />
             <label htmlFor="netualal">Neutral</label>
           </div>
           <div className="flex gap-x-2 text-gray-600">
-            <input type="radio" id="unlikely" name="likely" value="Unlikely" />
+            <input type="radio" id="unlikely" name="likely" value="Unlikely" checked={formData.likely === "Unlikely"} onChange={handleInputChange} />
             <label htmlFor="unlikely">Unlikely</label>
           </div>
           <div className="flex flex-col gap-y-2 text-gray-600">
@@ -205,6 +272,9 @@ const FeedBackForm = () => {
             <textarea
               className="border-[1.3px] border-gray-600 rounded-md"
               rows={5}
+              name="improvements"
+              value={formData.improvements}
+              onChange={handleInputChange}
             ></textarea>
           </div>
         </div>
@@ -218,12 +288,14 @@ const FeedBackForm = () => {
               type="radio"
               id="not"
               name="recommend"
-              value=" Very likely"
+              value="Very likely"
+              checked={formData.recommend === "Very likely"}
+              onChange={handleInputChange}
             />
             <label htmlFor="not"> Very likely</label>
           </div>
           <div className="flex gap-x-2 text-gray-600">
-            <input type="radio" id="li" name="recommend" value="Likely" />
+            <input type="radio" id="li" name="recommend" value="Likely" checked={formData.recommend === "Likely"} onChange={handleInputChange} />
             <label htmlFor="li">Likely</label>
           </div>
           <div className="flex gap-x-2 text-gray-600">
@@ -232,11 +304,13 @@ const FeedBackForm = () => {
               id="neurtaal"
               name="recommend"
               value="Neutral"
+              checked={formData.recommend === "Neutral"}
+              onChange={handleInputChange}
             />
             <label htmlFor="neurtaal">Neutral</label>
           </div>
           <div className="flex gap-x-2 text-gray-600">
-            <input type="radio" id="no-like" name="recommend" value="Unlikely" />
+            <input type="radio" id="no-like" name="recommend" value="Unlikely" checked={formData.recommend === "Unlikely"} onChange={handleInputChange} />
             <label htmlFor="no-like">Unlikely</label>
           </div>
         </div>
@@ -245,19 +319,19 @@ const FeedBackForm = () => {
         <div className="mt-3 text-gray-600">
           {/* 1 */}
           <div className="flex gap-x-2">
-            <input type="checkbox" id="checkbox1" />
+            <input type="checkbox" id="checkbox1" name="termsAgreed" checked={formData.termAgreed} onChange={handleInputChange} />
             <label htmlFor="checkbox1">I have read and agree all terms</label>
           </div>
           {/* 2 */}
           <div className="flex gap-x-2">
-            <input type="checkbox" id="checkbox2" />
+            <input type="checkbox" id="checkbox2" name="dataLostAgreed" checked={formData.dataLostAgreed} onChange={handleInputChange}/>
             <label htmlFor="checkbox2">
               I understood all my data will be lost if I deleting my account
             </label>
           </div>
           {/* 3 */}
           <div className="flex gap-x-2">
-            <input type="checkbox" id="checkbox3" />
+            <input type="checkbox" id="checkbox3" name="notReclaimAgreed" checked={formData.notReclaimAgreed} onChange={handleInputChange}/>
             <label htmlFor="checkbox3">
               I understood my account details will be lost if I deleting my
               account and can not be reclaim
@@ -273,21 +347,27 @@ const FeedBackForm = () => {
               className="border-[1.3px] border-gray-600 rounded-md p-2 outline-none"
               type="number"
               placeholder="+91 XXXXX XXXXX"
+              name="phoneNumber"
+              value={formData.phoneNumber}
+              onChange={handleInputChange}
             />
           </div>
           <div className="flex flex-col gap-y-1 mt-5">
             <label>Write “DELETE” for your conformation</label>
             <input
               className="border-[1.3px] border-gray-600 rounded-md p-2 outline-none"
-              type="number"
+              type="text"
               placeholder=" Delete"
+              name="confirmation"
+              value={formData.confirmation}
+              onChange={handleInputChange}
             />
           </div>
-          <Link to={'/confirm-otp'} >
-          <button className="bg-red-700 text-white font-bold rounded-md p-2 mt-4 w-full mb-10">
+          {/* <Link to={'/confirm-otp'} > */}
+          <button type="submit" className="bg-red-700 text-white font-bold rounded-md p-2 mt-4 w-full mb-10">
             Send OTP
           </button>
-          </Link>
+          {/* </Link> */}
         </div>
       </form>
     </div>
