@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import axios from 'axios';
+// import { Link } from "react-router-dom";
+// import axios from 'axios';
 
 const FeedBackForm = () => {
   const [formData, setFormData] = useState({
@@ -32,6 +32,7 @@ const FeedBackForm = () => {
     e.preventDefault();
     console.log(formData);
     // Add your logic to submit the form data here
+
     
   };
 
@@ -309,7 +310,7 @@ const FeedBackForm = () => {
               onChange={handleInputChange}
             />
             <label htmlFor="checkbox1">
-              I have read and agree all terms<sup>*</sup>
+              I have read and agree all terms<sup className="text-red-500">*</sup>
             </label>
           </div>
           {/* 2 */}
@@ -323,7 +324,7 @@ const FeedBackForm = () => {
             />
             <label htmlFor="checkbox2">
               I understood all my data will be lost if I deleting my account
-              <sup>*</sup>
+              <sup className="text-red-500">*</sup>
             </label>
           </div>
           {/* 3 */}
@@ -337,7 +338,7 @@ const FeedBackForm = () => {
             />
             <label htmlFor="checkbox3">
               I understood my account details will be lost if I deleting my
-              account and can not be reclaim<sup>*</sup>
+              account and can not be reclaim<sup className="text-red-500">*</sup>
             </label>
           </div>
         </div>
