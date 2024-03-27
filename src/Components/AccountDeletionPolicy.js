@@ -52,6 +52,10 @@ const AccountDeletionPolicy = () => {
         your privacy. Your trust and satisfaction are of paramount importance to
         us at Passdn Technology Private Limited.
       </p>
+
+      <p className="mt-3 pb-3">
+        Please submit the feedback form to delete your account.
+      </p>
     </div>
   );
 };

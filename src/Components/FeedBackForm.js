@@ -1,23 +1,23 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 const FeedBackForm = () => {
-
   const [formData, setFormData] = useState({
     reason: "",
     satisfaction: "",
     technical: "",
     improvements: "",
-    likely:"",
+    likely: "",
     recommend: "",
     phoneNumber: "",
     confirmation: "",
-    aboutApp:"",
-    aboutAppExperience:"",
-    technicalIssues:"",
-    termAgreed:false,
-    dataLostAgreed:false,
-    notReclaimAgreed:false,
+    aboutApp: "",
+    aboutAppExperience: "",
+    technicalIssues: "",
+    termAgreed: false,
+    dataLostAgreed: false,
+    notReclaimAgreed: false,
   });
 
   const handleInputChange = (e) => {
@@ -28,10 +28,11 @@ const FeedBackForm = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     console.log(formData);
     // Add your logic to submit the form data here
+    
   };
 
   return (
@@ -50,7 +51,10 @@ const FeedBackForm = () => {
               id="dissatisfaction"
               name="reason"
               value="Dissatisfaction with app features or functionality."
-              checked={formData.reason === "Dissatisfaction with app features or functionality."}
+              checked={
+                formData.reason ===
+                "Dissatisfaction with app features or functionality."
+              }
               onChange={handleInputChange}
             />
             <label htmlFor="dissatisfaction">
@@ -63,7 +67,9 @@ const FeedBackForm = () => {
               id="privacy"
               name="reason"
               value="Privacy concerns or data handling issues."
-              checked={formData.reason === "Privacy concerns or data handling issues."}
+              checked={
+                formData.reason === "Privacy concerns or data handling issues."
+              }
               onChange={handleInputChange}
             />
             <label htmlFor="privacy">
@@ -76,7 +82,9 @@ const FeedBackForm = () => {
               id="alternative"
               name="reason"
               value="Found an alternative service or platform."
-              checked={formData.reason === "Found an alternative service or platform."}
+              checked={
+                formData.reason === "Found an alternative service or platform."
+              }
               onChange={handleInputChange}
             />
             <label htmlFor="alternative">
@@ -96,7 +104,7 @@ const FeedBackForm = () => {
           </div>
           <div className="flex flex-col gap-y-2 text-gray-600">
             <label>
-              Write about app experience<sup>*</sup>
+              Write us what went wrong.<sup>*</sup>
             </label>
             <textarea
               className="border-[1.3px] border-gray-600 rounded-md"
@@ -135,7 +143,13 @@ const FeedBackForm = () => {
             <label htmlFor="somewhat">Somewhat satisfied</label>
           </div>
           <div className="flex gap-x-2 text-gray-600">
-            <input type="radio" id="neutral" name="satisfied" value="Neutral" checked={formData.satisfied === "Neutral"}/>
+            <input
+              type="radio"
+              id="neutral"
+              name="satisfied"
+              value="Neutral"
+              checked={formData.satisfied === "Neutral"}
+            />
             <label htmlFor="neutral">Neutral</label>
           </div>
           <div className="flex gap-x-2 text-gray-600">
@@ -153,7 +167,7 @@ const FeedBackForm = () => {
           </div>
           <div className="flex flex-col gap-y-2 text-gray-600">
             <label>
-              Write about app experience<sup>*</sup>
+              How can we improve?<sup>*</sup>
             </label>
             <textarea
               className="border-[1.3px] border-gray-600 rounded-md"
@@ -209,7 +223,10 @@ const FeedBackForm = () => {
               id="appfeatures"
               name="technical"
               value="Dissatisfaction with app features or functionality."
-              checked={formData.technical === "Dissatisfaction with app features or functionality."}
+              checked={
+                formData.technical ===
+                "Dissatisfaction with app features or functionality."
+              }
               onChange={handleInputChange}
             />
             <label htmlFor="appfeatures">
@@ -218,7 +235,7 @@ const FeedBackForm = () => {
           </div>
           <div className="flex flex-col gap-y-2 text-gray-600">
             <label>
-              Any technical issues you faced *<sup>*</sup>
+              Any technical issues you faced? <sup>*</sup>
             </label>
             <textarea
               className="border-[1.3px] border-gray-600 rounded-md"
@@ -232,56 +249,7 @@ const FeedBackForm = () => {
         {/* 4 */}
         <div className="mt-8 flex flex-col gap-y-2 ">
           <label className="text-xl text-gray-600">
-            4. What improvements or additional features would have encouraged
-            you to continue using our app?
-          </label>
-          <div className="flex gap-x-2 text-gray-600">
-            <input
-              type="radio"
-              id="ver like"
-              name="likely"
-              value="Very likely"
-              checked={formData.likely === "Very likely"}
-              onChange={handleInputChange}
-            />
-            <label htmlFor="ver like"> Very likely</label>
-          </div>
-          <div className="flex gap-x-2 text-gray-600">
-            <input type="radio" id="md like" name="likely" value="Likely" checked={formData.likely === "Likely"} onChange={handleInputChange} />
-            <label htmlFor="md like">Likely</label>
-          </div>
-          <div className="flex gap-x-2 text-gray-600">
-            <input
-              type="radio"
-              id="netualal"
-              name="likely"
-              value="Neutral"
-              checked={formData.likely === "Neutral"}
-              onChange={handleInputChange}
-            />
-            <label htmlFor="netualal">Neutral</label>
-          </div>
-          <div className="flex gap-x-2 text-gray-600">
-            <input type="radio" id="unlikely" name="likely" value="Unlikely" checked={formData.likely === "Unlikely"} onChange={handleInputChange} />
-            <label htmlFor="unlikely">Unlikely</label>
-          </div>
-          <div className="flex flex-col gap-y-2 text-gray-600">
-            <label>
-              What we need to improve<sup>*</sup>
-            </label>
-            <textarea
-              className="border-[1.3px] border-gray-600 rounded-md"
-              rows={5}
-              name="improvements"
-              value={formData.improvements}
-              onChange={handleInputChange}
-            ></textarea>
-          </div>
-        </div>
-        {/* 5 */}
-        <div className="mt-8 flex flex-col gap-y-2 ">
-          <label className="text-xl text-gray-600">
-            5. How likely are you to recommend our app to others?
+            4. How likely are you to recommend our app to others?
           </label>
           <div className="flex gap-x-2 text-gray-600">
             <input
@@ -295,7 +263,14 @@ const FeedBackForm = () => {
             <label htmlFor="not"> Very likely</label>
           </div>
           <div className="flex gap-x-2 text-gray-600">
-            <input type="radio" id="li" name="recommend" value="Likely" checked={formData.recommend === "Likely"} onChange={handleInputChange} />
+            <input
+              type="radio"
+              id="li"
+              name="recommend"
+              value="Likely"
+              checked={formData.recommend === "Likely"}
+              onChange={handleInputChange}
+            />
             <label htmlFor="li">Likely</label>
           </div>
           <div className="flex gap-x-2 text-gray-600">
@@ -310,7 +285,14 @@ const FeedBackForm = () => {
             <label htmlFor="neurtaal">Neutral</label>
           </div>
           <div className="flex gap-x-2 text-gray-600">
-            <input type="radio" id="no-like" name="recommend" value="Unlikely" checked={formData.recommend === "Unlikely"} onChange={handleInputChange} />
+            <input
+              type="radio"
+              id="no-like"
+              name="recommend"
+              value="Unlikely"
+              checked={formData.recommend === "Unlikely"}
+              onChange={handleInputChange}
+            />
             <label htmlFor="no-like">Unlikely</label>
           </div>
         </div>
@@ -319,22 +301,43 @@ const FeedBackForm = () => {
         <div className="mt-3 text-gray-600">
           {/* 1 */}
           <div className="flex gap-x-2">
-            <input type="checkbox" id="checkbox1" name="termsAgreed" checked={formData.termAgreed} onChange={handleInputChange} />
-            <label htmlFor="checkbox1">I have read and agree all terms</label>
+            <input
+              type="checkbox"
+              id="checkbox1"
+              name="termsAgreed"
+              checked={formData.termAgreed}
+              onChange={handleInputChange}
+            />
+            <label htmlFor="checkbox1">
+              I have read and agree all terms<sup>*</sup>
+            </label>
           </div>
           {/* 2 */}
           <div className="flex gap-x-2">
-            <input type="checkbox" id="checkbox2" name="dataLostAgreed" checked={formData.dataLostAgreed} onChange={handleInputChange}/>
+            <input
+              type="checkbox"
+              id="checkbox2"
+              name="dataLostAgreed"
+              checked={formData.dataLostAgreed}
+              onChange={handleInputChange}
+            />
             <label htmlFor="checkbox2">
               I understood all my data will be lost if I deleting my account
+              <sup>*</sup>
             </label>
           </div>
           {/* 3 */}
           <div className="flex gap-x-2">
-            <input type="checkbox" id="checkbox3" name="notReclaimAgreed" checked={formData.notReclaimAgreed} onChange={handleInputChange}/>
+            <input
+              type="checkbox"
+              id="checkbox3"
+              name="notReclaimAgreed"
+              checked={formData.notReclaimAgreed}
+              onChange={handleInputChange}
+            />
             <label htmlFor="checkbox3">
               I understood my account details will be lost if I deleting my
-              account and can not be reclaim
+              account and can not be reclaim<sup>*</sup>
             </label>
           </div>
         </div>
@@ -342,11 +345,11 @@ const FeedBackForm = () => {
         {/* mobile details */}
         <div className="mt-5 text-gray-600">
           <div className="flex flex-col gap-y-1">
-            <label>Enter Your Number</label>
+            <label>Enter Mobile Number</label>
             <input
               className="border-[1.3px] border-gray-600 rounded-md p-2 outline-none"
-              type="number"
-              placeholder="+91 XXXXX XXXXX"
+              type="string"
+              placeholder="8888888888"
               name="phoneNumber"
               value={formData.phoneNumber}
               onChange={handleInputChange}
@@ -357,14 +360,17 @@ const FeedBackForm = () => {
             <input
               className="border-[1.3px] border-gray-600 rounded-md p-2 outline-none"
               type="text"
-              placeholder=" Delete"
+              placeholder=" DELETE"
               name="confirmation"
               value={formData.confirmation}
               onChange={handleInputChange}
             />
           </div>
           {/* <Link to={'/confirm-otp'} > */}
-          <button type="submit" className="bg-red-700 text-white font-bold rounded-md p-2 mt-4 w-full mb-10">
+          <button
+            type="submit"
+            className="bg-red-700 text-white font-bold rounded-md p-2 mt-4 w-full mb-10"
+          >
             Send OTP
           </button>
           {/* </Link> */}

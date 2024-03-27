@@ -13,8 +13,7 @@ function App() {
     <Header/>
 
     <Routes>
-      <Route path='/' element={<DeleteCard/>}/>
-      <Route path='/account-delete-policy' element={<Deletion/>}/>
+      <Route path='/' element={<Deletion/>}/>
       <Route path='/confirm-otp' element={<ConfirmOTP/>}/>
     </Routes>
 
