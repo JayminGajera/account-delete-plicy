@@ -304,7 +304,7 @@ const FeedBackForm = () => {
             <input
               type="checkbox"
               id="checkbox1"
-              name="termsAgreed"
+              name="termAgreed"
               checked={formData.termAgreed}
               onChange={handleInputChange}
             />
@@ -348,7 +348,7 @@ const FeedBackForm = () => {
             <label>Enter Mobile Number</label>
             <input
               className="border-[1.3px] border-gray-600 rounded-md p-2 outline-none"
-              type="string"
+              type="tel"
               placeholder="8888888888"
               name="phoneNumber"
               value={formData.phoneNumber}
