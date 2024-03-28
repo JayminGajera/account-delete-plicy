@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 // import { Link } from "react-router-dom";
-// import axios from 'axios';
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const FeedBackForm = () => {
   const [formData, setFormData] = useState({
@@ -20,6 +21,8 @@ const FeedBackForm = () => {
     notReclaimAgreed: false,
   });
 
+  const navigate = useNavigate();
+
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prevData) => ({
@@ -28,12 +31,37 @@ const FeedBackForm = () => {
     }));
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
     // Add your logic to submit the form data here
+    var mobile = "91" + formData.phoneNumber;
+    var result = await axios.get(
+      `https://control.msg91.com/api/v5/otp/retry?retrytype=text&authkey=401231AwC5X7VuT64e85054P1&mobile=${mobile}`
+    );
 
-    
+    console.log(result);
+
+    const deleteAccount = await fetch(`https://wrl1t22t-8080.inc1.devtunnels.ms/api/user/userDeleteForm`,{
+      method:"POST",
+      body: JSON.stringify({
+        phone: formData.phoneNumber,
+        primaryReason: formData.reason,
+        whatWentWrong: formData.reason,
+        satisfaction: formData.satisfies,
+        improvement: formData.reason,
+        technicalIssues: formData.technical,
+        technicalIssuesDetails: formData.technicalIssues,
+        recommendation: formData.recommend,
+      }),
+    });
+
+    const resultOfUser = await deleteAccount.json();
+    console.log(resultOfUser);
+
+    if(result.status === 200){
+      navigate('/confirm-otp');
+    }
   };
 
   return (
@@ -108,11 +136,12 @@ const FeedBackForm = () => {
               Write us what went wrong.<sup>*</sup>
             </label>
             <textarea
-              className="border-[1.3px] border-gray-600 rounded-md"
+              className="border-[1.3px] border-gray-600 rounded-md p-2 outline-none"
               rows={5}
               name="aboutApp"
               value={formData.aboutApp}
               onChange={handleInputChange}
+
             ></textarea>
           </div>
         </div>
@@ -171,7 +200,7 @@ const FeedBackForm = () => {
               How can we improve?<sup>*</sup>
             </label>
             <textarea
-              className="border-[1.3px] border-gray-600 rounded-md"
+              className="border-[1.3px] border-gray-600 rounded-md p-2 outline-none"
               rows={5}
               name="aboutAppExperience"
               value={formData.aboutAppExperience}
@@ -239,7 +268,7 @@ const FeedBackForm = () => {
               Any technical issues you faced? <sup>*</sup>
             </label>
             <textarea
-              className="border-[1.3px] border-gray-600 rounded-md"
+              className="border-[1.3px] border-gray-600 rounded-md p-2 outline-none"
               rows={5}
               name="technicalIssues"
               value={formData.technicalIssues}
@@ -310,7 +339,8 @@ const FeedBackForm = () => {
               onChange={handleInputChange}
             />
             <label htmlFor="checkbox1">
-              I have read and agree all terms<sup className="text-red-500">*</sup>
+              I have read and agree all terms
+              <sup className="text-red-500">*</sup>
             </label>
           </div>
           {/* 2 */}
@@ -338,7 +368,8 @@ const FeedBackForm = () => {
             />
             <label htmlFor="checkbox3">
               I understood my account details will be lost if I deleting my
-              account and can not be reclaim<sup className="text-red-500">*</sup>
+              account and can not be reclaim
+              <sup className="text-red-500">*</sup>
             </label>
           </div>
         </div>
@@ -350,7 +381,7 @@ const FeedBackForm = () => {
             <input
               className="border-[1.3px] border-gray-600 rounded-md p-2 outline-none"
               type="tel"
-              placeholder="8888888888"
+              placeholder="XXXXX XXXXX"
               name="phoneNumber"
               value={formData.phoneNumber}
               onChange={handleInputChange}
