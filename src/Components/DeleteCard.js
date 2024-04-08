@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 const DeleteCard = () => {
   return (
-    <div className="w-full h-full flex justify-center items-center px-3">
-      <div className="w-[25rem] flex flex-col items-center gap-y-8 border-2 border-gray-200 rounded-md">
+    <div className="w-full h-full flex justify-center items-center px-3 mt-10">
+      <div className="w-[25rem] md:w-[40rem] flex flex-col items-center gap-y-8 border-2 border-gray-200 rounded-md">
       <div className="bg-[#FAF6FB] w-full">
         <img src={cardImage} alt="card" className="mx-auto h-[15rem]"/>
       </div>
@@ -14,8 +14,8 @@ const DeleteCard = () => {
         <p className="text-gray-700 mt-2">If you wish to proceed with deleting your account, please click the confirmation button below:</p>
       </div>
       <div className="w-full px-5 py-2 flex gap-x-3 font-semibold">
-        <button className="w-full rounded-full p-2 border-2 border-gray-200">Cancel,Keep account</button>
-        <Link to={'/account-delete-policy'} className="w-full bg-red-700 text-white rounded-full p-2 border-2 border-gray-200 flex items-center justify-center"><button >Delete Account</button></Link>
+        <button className="w-full rounded-full p-2 border-2 border-gray-200 text-sm lg:text-lg">Cancel,Keep account</button>
+        <Link to={'/account-delete-policy'} className="w-full bg-red-700 text-white rounded-full p-2 border-2 border-gray-200 flex items-center justify-center text-sm lg:text-lg"><button >Delete Account</button></Link>
       </div>
       </div>
     </div>

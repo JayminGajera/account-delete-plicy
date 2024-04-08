@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 // import { Link } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const FeedBackForm = () => {
   const [formData, setFormData] = useState({
@@ -34,33 +35,58 @@ const FeedBackForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
-    // Add your logic to submit the form data here
-    var mobile = "91" + formData.phoneNumber;
-    var result = await axios.get(
-      `https://control.msg91.com/api/v5/otp/retry?retrytype=text&authkey=401231AwC5X7VuT64e85054P1&mobile=${mobile}`
-    );
 
-    console.log(result);
+    if (formData.confirmation !== "DELETE") {
+      toast.error("Write DELETE");
+    } else {
+      var mobile = "91" + String(formData.phoneNumber);
+      const msgAuthKey="401231AwC5X7VuT64e85054P1"
 
-    const deleteAccount = await fetch(`https://wrl1t22t-8080.inc1.devtunnels.ms/api/user/userDeleteForm`,{
-      method:"POST",
-      body: JSON.stringify({
-        phone: formData.phoneNumber,
-        primaryReason: formData.reason,
-        whatWentWrong: formData.reason,
-        satisfaction: formData.satisfies,
-        improvement: formData.reason,
-        technicalIssues: formData.technical,
-        technicalIssuesDetails: formData.technicalIssues,
-        recommendation: formData.recommend,
-      }),
-    });
+      try {
+        var result = await axios.get(
+          `https://control.msg91.com/api/v5/otp/retry?retrytype=text&authkey=${msgAuthKey}&mobile=${mobile}`,
+          {
+            headers: {
+              authkey: msgAuthKey,
+            },
+          }
+        );
+        console.log(result.data); // Log the response data to see if it contains otp_expires
+      } catch (error) {
+        console.error("Error making API request:", error);
+      }
 
-    const resultOfUser = await deleteAccount.json();
-    console.log(resultOfUser);
+      const deleteAccount = await fetch(
+        `http://passdn.ap-south-1.elasticbeanstalk.com/api/user/userDeleteForm`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            phone: String(formData.phoneNumber),
+            primaryReason: String(formData.reason),
+            whatWentWrong: String(formData.reason),
+            satisfaction: String(formData.satisfied),
+            improvement: String(formData.reason),
+            technicalIssues: String(formData.technical),
+            technicalIssuesDetails: String(formData.technicalIssues),
+            recommendation: String(formData.recommend),
+          }),
+        }
+      );
 
-    if(result.status === 200){
-      navigate('/confirm-otp');
+      const resultOfUser = await deleteAccount.json();
+      console.log(resultOfUser);
+
+      if(resultOfUser.success === false){
+        toast.error(resultOfUser.error);
+      }
+
+      if (result?.status === 200) {
+        navigate("/confirm-otp");
+        toast.success("Verification OTP Send");
+      }
     }
   };
 
@@ -141,7 +167,6 @@ const FeedBackForm = () => {
               name="aboutApp"
               value={formData.aboutApp}
               onChange={handleInputChange}
-
             ></textarea>
           </div>
         </div>
@@ -380,7 +405,7 @@ const FeedBackForm = () => {
             <label>Enter Mobile Number</label>
             <input
               className="border-[1.3px] border-gray-600 rounded-md p-2 outline-none"
-              type="tel"
+              type="text"
               placeholder="XXXXX XXXXX"
               name="phoneNumber"
               value={formData.phoneNumber}

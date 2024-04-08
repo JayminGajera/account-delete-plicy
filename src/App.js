@@ -1,10 +1,8 @@
-import { Route, Router, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import AccountDeletionPolicy from './Components/AccountDeletionPolicy';
 import ConfirmOTP from './Components/ConfirmOTP';
 import DeleteCard from './Components/DeleteCard';
 import Deletion from './Components/Deletion';
-import FeedBackForm from './Components/FeedBackForm';
 import Header from './Components/Header';
 
 function App() {
@@ -13,7 +11,8 @@ function App() {
     <Header/>
 
     <Routes>
-      <Route path='/' element={<Deletion/>}/>
+      <Route path='/' element={<DeleteCard/>}/>
+      <Route path='/account-delete-policy' element={<Deletion/>}/>
       <Route path='/confirm-otp' element={<ConfirmOTP/>}/>
     </Routes>
 
